@@ -15,14 +15,70 @@ using System.Windows.Shapes;
 
 namespace Kalkulator
 {
-    /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
+        private Calculator cal = new Calculator();
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();   
+        }
+
+        private void buttonNumber_Click(object sender, RoutedEventArgs e)
+        {
+            if (cal.ResultClicked)
+            {
+                cal.ResultClicked = false;
+                if (!cal.operatorAtEnd())
+                {
+                    cal.OperationDisplay = "";
+                    textBlockResult.Text = "";
+                }
+            }
+            Button butt = (Button)sender;
+            cal.OperationDisplay += butt.Content;
+            textBlockScreen.Text = cal.OperationDisplay; 
+        }
+
+
+        private void buttonOperator_Click(object sender, RoutedEventArgs e)
+        {
+            if(cal.ResultClicked)
+            {
+                cal.OperationDisplay = textBlockResult.Text;
+                cal.ResultClicked = false;
+            }
+            Button butt = (Button)sender;
+            bool doubleOperators = cal.noDoubleOperators();
+            if (cal.OperationDisplay != "") cal.OperationDisplay += butt.Content;
+            textBlockScreen.Text = cal.OperationDisplay;
+            if(doubleOperators) textBlockResult.Text = cal.getResult();
+        }
+
+       
+        private void buttonUndo_Click(object sender, RoutedEventArgs e)
+        {
+            cal.undo();
+            textBlockScreen.Text = cal.OperationDisplay;
+        }
+
+        private void buttonClear_Click(object sender, RoutedEventArgs e)
+        {
+            cal.clear();
+            textBlockScreen.Text = cal.OperationDisplay;
+        }
+
+        private void buttonResult_Click(object sender, RoutedEventArgs e)
+        {
+            cal.getResult();
+            textBlockResult.Text = cal.getResult();
+            cal.ResultClicked = true;
+        }
+
+        private void buttonDot_Click(object sender, RoutedEventArgs e)
+        {
+            cal.noWrongDots();
+            textBlockScreen.Text = cal.OperationDisplay;
         }
     }
 }

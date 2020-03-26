@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kalkulator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="400">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition> 
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Name="buttonClear" Content="CLEAR" Grid.Row="3" Grid.Column="1" Margin="10,10,10,10" Click="buttonClear_Click"/>
+        <Button Name="buttonUndo" Content="UNDO" Grid.Row="3" Margin="10,10,10,10" Click="buttonUndo_Click"/>
+
+        <Button Name="buttonAdd" Content="+" Grid.Row="4" Grid.Column="3" Margin="10,10,25,10" FontSize="32" Click="buttonOperator_Click"/>
+        <Button Name="buttonSubtract" Content="-" Grid.Row="5" Grid.Column="3" Margin="10,10,25,10" FontSize="32" Click="buttonOperator_Click"/>
+        <Button Name="buttonMultiply" Content="*" Grid.Row="6" Grid.Column="3" Margin="10,10,25,10" FontSize="32" Click="buttonOperator_Click"/>
+        <Button Name="buttonDivide" Content="/" Grid.Row="7" Grid.Column="3" Margin="10,10,25,10" FontSize="32" Click="buttonOperator_Click"/>
+
+        <Button Name="button0" Content="0" Grid.Row="7" Grid.Column="1" Margin="5,0,5,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button1" Content="1" Grid.Row="6" Margin="10,0,0,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button2" Content="2" Grid.Row="6" Grid.Column="1" Margin="5,0,5,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button3" Content="3" Grid.Row="6" Grid.Column="2" Margin="0,0,10,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button4" Content="4" Grid.Row="5" Margin="10,0,0,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button5" Content="5" Grid.Row="5" Grid.Column="1" Margin="5,0,5,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button6" Content="6" Grid.Row="5" Grid.Column="2" Margin="0,0,10,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button7" Content="7" Grid.Row="4" Margin="10,0,0,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button8" Content="8" Grid.Row="4" Grid.Column="1" Margin="5,0,5,0" FontSize="32" Click="buttonNumber_Click"/>
+        <Button Name="button9" Content="9" Grid.Row="4" Grid.Column="2" Margin="0,0,10,0" FontSize="32" Click="buttonNumber_Click"/>
+
+        <Button Name="buttonDot" Content="." Grid.Row="7" Grid.Column="2" Margin="15,10,15,10" FontSize="36" Click="buttonDot_Click" />
+        <Button Name="buttonResult" Content="=" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,10,25,10" FontSize="32" Click="buttonResult_Click"/>
+
+        <Border Name="borderScreen" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1" Margin="20,10,20,10"/>
+        <TextBlock Name="textBlockScreen" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" Margin="25,10,25,10"/>
+        <TextBlock Name="textBlockResult" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" FontSize="28" TextAlignment="Right" Margin="0,30,25,10"/>
     </Grid>
 </Window>
