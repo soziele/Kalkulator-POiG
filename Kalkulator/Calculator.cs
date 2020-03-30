@@ -100,8 +100,12 @@ namespace Kalkulator
                     }
                     else if (currentOperators[i] == operators[3])
                     {
-                        if (numbers[i + 1] != 0) result /= numbers[i + 1];
-                        else return "Próba podzielenia przez zero!";
+                    if (numbers[i + 1] != 0) result /= numbers[i + 1];
+                    else
+                    {
+                        OperationDisplay = "";
+                        return "Próba podzielenia przez zero!";
+                    }
                     }
 
             }

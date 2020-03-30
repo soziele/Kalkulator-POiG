@@ -56,6 +56,8 @@ namespace Kalkulator
             if (cal.OperationDisplay != "") cal.OperationDisplay += butt.Content;
             textBlockScreen.Text = cal.OperationDisplay;
             if(doubleOperators) textBlockResult.Text = cal.getResult();
+            if (textBlockResult.Text.Contains("zero")) textBlockResult.FontSize = 18;
+            
         }
 
        
@@ -77,6 +79,7 @@ namespace Kalkulator
             cal.getResult();
             textBlockResult.Text = cal.getResult();
             cal.ResultClicked = true;
+            if (textBlockResult.Text.Contains("zero")) textBlockResult.FontSize = 18;
         }
 
         private void buttonDot_Click(object sender, RoutedEventArgs e)
