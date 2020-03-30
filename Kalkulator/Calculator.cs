@@ -129,10 +129,9 @@ namespace Kalkulator
         {
             if (((OperationDisplay.LastIndexOf('.') < OperationDisplay.LastIndexOfAny(operators.ToArray())) || (!OperationDisplay.Contains('.')))&&OperationDisplay!="")
             {
-                if (OperationDisplay.IndexOf(')') == OperationDisplay.Length - 1) OperationDisplay = OperationDisplay.Insert(OperationDisplay.Length - 1, ".");
+                if (OperationDisplay.LastIndexOf(')') == OperationDisplay.Length - 1) OperationDisplay = OperationDisplay.Insert(OperationDisplay.Length - 1, ".");
                 else if (OperationDisplay.LastIndexOfAny(operators.ToArray())!=OperationDisplay.Length-1)
                 OperationDisplay += '.';
-                
             }
             
         }

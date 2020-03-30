@@ -68,6 +68,7 @@ namespace Kalkulator
         private void buttonClear_Click(object sender, RoutedEventArgs e)
         {
             cal.clear();
+            textBlockResult.Text = "";
             textBlockScreen.Text = cal.OperationDisplay;
         }
 
