@@ -36,7 +36,10 @@ namespace Kalkulator
                 }
             }
             Button butt = (Button)sender;
-            cal.OperationDisplay += butt.Content;
+
+            if(cal.isNegative()) cal.OperationDisplay = cal.OperationDisplay.Insert(cal.OperationDisplay.Length - 1, butt.Content.ToString());
+            else cal.OperationDisplay += butt.Content;
+
             textBlockScreen.Text = cal.OperationDisplay; 
         }
 
@@ -78,6 +81,12 @@ namespace Kalkulator
         private void buttonDot_Click(object sender, RoutedEventArgs e)
         {
             cal.noWrongDots();
+            textBlockScreen.Text = cal.OperationDisplay;
+        }
+
+        private void buttonSign_Click(object sender, RoutedEventArgs e)
+        {
+            cal.signChange();
             textBlockScreen.Text = cal.OperationDisplay;
         }
     }

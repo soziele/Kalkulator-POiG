@@ -31,11 +31,38 @@ namespace Kalkulator
                 negativeFirst = true;
             }
                 //utworzenie tablicy wszystkich liczb w wyrażeniu
-                string[] nums = resultDisplay.Split(operators.ToArray());
+                string[] nums_tmp = resultDisplay.Split(operators.ToArray());
+            int braces_count=0;
+            for (int i = 0; i < nums_tmp.Length; i++)
+            {
+                if (nums_tmp[i].Contains('(')) braces_count++;
+            }
+
+            string[] nums=new string[nums_tmp.Length-braces_count];
+            int m = 0;
+
+            for (int i = 0; i < nums_tmp.Length; i++)
+            {
+                if (!nums_tmp[i].Contains('('))
+                {
+                    if (nums_tmp[i].Contains(')'))
+                    {
+                        nums_tmp[i] = nums_tmp[i].Trim(')');
+                        nums_tmp[i] = "-" + nums_tmp[i];
+                    }
+
+                    nums[m] = nums_tmp[i];
+                    m++;
+                }
+            }
+
+        
+
                 double[] numbers = new double[nums.Length];
 
             NumberFormatInfo provider = new NumberFormatInfo();
             provider.NumberGroupSeparator = ".";
+
          
                 for (int i = 0; i < nums.Length; i++)
                 {
@@ -50,7 +77,7 @@ namespace Kalkulator
                 int n = 0;
                 for (int i = 0; i < tmp.Length; i++)
                 {
-                    if (operators.Contains(tmp[i]))
+                    if (operators.Contains(tmp[i])&& tmp[i-1]!='(')
                     {
                         currentOperators[n] = tmp[i];
                         n++;
@@ -102,10 +129,66 @@ namespace Kalkulator
         {
             if (((OperationDisplay.LastIndexOf('.') < OperationDisplay.LastIndexOfAny(operators.ToArray())) || (!OperationDisplay.Contains('.')))&&OperationDisplay!="")
             {
-                if(OperationDisplay.LastIndexOfAny(operators.ToArray())!=OperationDisplay.Length-1)
+                if (OperationDisplay.IndexOf(')') == OperationDisplay.Length - 1) OperationDisplay = OperationDisplay.Insert(OperationDisplay.Length - 1, ".");
+                else if (OperationDisplay.LastIndexOfAny(operators.ToArray())!=OperationDisplay.Length-1)
                 OperationDisplay += '.';
+                
             }
             
+        }
+
+        public void signChange()
+        {
+            bool anyOperators = false;
+            bool positiveSign = true;
+            int index = 0;
+            string x = "";
+
+
+            if (OperationDisplay.Length != 0 && !(OperationDisplay.LastIndexOfAny(operators.ToArray())==OperationDisplay.Length-1))
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (OperationDisplay.Contains(operators[i])) anyOperators = true;
+                }
+
+                if (anyOperators)
+                {
+                    index = OperationDisplay.LastIndexOfAny(operators.ToArray());
+                }
+
+                if (anyOperators && OperationDisplay.Substring(index - 1).Contains('(')) positiveSign = false;
+
+                if (positiveSign)
+                {
+
+                    if (index != 0) x = OperationDisplay.Substring(index + 1);
+                    else x = OperationDisplay;
+                    x = "(-" + x + ')';
+                    if (index != 0)
+                    {
+                        OperationDisplay = OperationDisplay.Remove(index + 1);
+                        OperationDisplay += x;
+                    }
+                    else OperationDisplay = x;
+                }
+                else
+                {
+                    x = OperationDisplay.Substring(index - 1);
+                    x = x.Trim('(', ')');
+                    x = x.Trim('-');
+                    OperationDisplay = OperationDisplay.Remove(index - 1);
+                    OperationDisplay += x;
+                }
+            }
+        }
+
+        public bool isNegative()
+        {
+            int index_oprtr = OperationDisplay.LastIndexOfAny(operators.ToArray());
+            int index_bracket = OperationDisplay.LastIndexOf('(');
+            if (index_oprtr == index_bracket + 1) return true;
+            return false;
         }
 
         public void undo()
@@ -113,6 +196,23 @@ namespace Kalkulator
             if (OperationDisplay != "")
             {
                 OperationDisplay = OperationDisplay.Remove(OperationDisplay.Length - 1);
+            }
+
+            int openingBrackets = 0;
+            int closingBrackets = 0;
+            for (int i = 0; i < OperationDisplay.Length; i++)
+            {
+                if (OperationDisplay[i]=='(') openingBrackets++;
+                if (OperationDisplay[i]==')') closingBrackets++;
+            }
+
+            if(openingBrackets>closingBrackets)
+            {
+                string x = OperationDisplay.Substring(OperationDisplay.LastIndexOf('('));
+                x=x.Trim('(');
+                x=x.Trim('-');
+                OperationDisplay = OperationDisplay.Remove(OperationDisplay.LastIndexOf('('));
+                OperationDisplay += x;
             }
         }
 
@@ -123,6 +223,7 @@ namespace Kalkulator
             {
                 undo();
             }
+
         }
 
         public bool operatorAtEnd()

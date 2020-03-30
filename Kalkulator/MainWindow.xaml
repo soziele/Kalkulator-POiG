@@ -44,6 +44,7 @@
         <Button Name="button9" Content="9" Grid.Row="4" Grid.Column="2" Margin="0,0,10,0" FontSize="32" Click="buttonNumber_Click"/>
 
         <Button Name="buttonDot" Content="." Grid.Row="7" Grid.Column="2" Margin="15,10,15,10" FontSize="36" Click="buttonDot_Click" />
+        <Button Name="buttonSign" Content="±" Grid.Row="7" Grid.Column="0" Margin="15,10,15,10" FontSize="28" Click="buttonSign_Click" />
         <Button Name="buttonResult" Content="=" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,10,25,10" FontSize="32" Click="buttonResult_Click"/>
 
         <Border Name="borderScreen" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" BorderBrush="Black" BorderThickness="1" Margin="20,10,20,10"/>
